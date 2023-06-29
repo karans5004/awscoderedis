@@ -1,0 +1,20 @@
+sudo apt update
+sudo fallocate -l 2G /swapfile
+sudo chmod 777 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo apt install -y apache2 wget unzip curl
+sudo apt install -y php7.4 libapache2-mod-php7.4 php7.4-mysql
+sudo apt install -y curl php7.4-cli php7.4-xml php7.4-mbstring git
+sudo apt install -y php-pear php-dev libzstd-dev
+sudo apt install -y mysql-client
+sudo pecl install igbinary
+yes 'y' | sudo pecl install redis
+sudo bash -c "echo 'extension=igbinary.so' >> /etc/php/7.4/apache2/php.ini"
+sudo bash -c "echo 'extension=redis.so' >> /etc/php/7.4/apache2/php.ini"
+sudo bash -c "echo 'extension=igbinary.so' >> /etc/php/7.4/cli/php.ini"
+sudo bash -c "echo 'extension=redis.so' >> /etc/php/7.4/cli/php.ini"
+sudo curl -sS https://getcomposer.org/installer -o composer-setup.php
+sudo php7.4 composer-setup.php --install-dir=/usr/local/bin --filename=composer
+sudo composer require aws/aws-sdk-php --working-dir=/var/www/html
+sudo composer require guzzlehttp/guzzle --working-dir=/var/www/html
